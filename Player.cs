@@ -25,7 +25,10 @@ public class Player
     public int InZonePitches { get; set;}
 
     /* Metrics and Name*/
-    public double Precision => (double)InZoneSwings / InZonePitches;
+    public double SwingPrecision => (double)InZoneSwings / (InZoneSwings + OutZoneSwings);
     public string Name => FirstName + " " + LastName;
-    public double Recall => (double)InZoneSwings / (InZoneSwings + OutZoneSwings);
+    public double SwingRecall => (double)InZoneSwings / InZonePitches;
+
+    public double TakePrecision => (double) (OutZonePitches - OutZoneSwings) / (OutZonePitches - OutZoneSwings + InZonePitches - InZoneSwings);
+    public double TakeRecall => (double) (OutZonePitches - OutZoneSwings) / OutZonePitches;
 }

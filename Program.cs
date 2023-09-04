@@ -22,7 +22,10 @@ namespace PlateDiscipline
                 players = records.ToList();
             }
             Scorer unbiased = new Scorer(1.0);
-            unbiased.WriteFscoreReport("UnbiasedReport", players);
+            // write the swing report
+            unbiased.WriteFscoreReport("UnbiasedReport", players, true);
+            // write the take report
+            unbiased.WriteFscoreReport("UnbiasedReport", players, false);
         }
     }
 
@@ -41,23 +44,31 @@ namespace PlateDiscipline
         
         private double _numeratorCoeff => 1 + _precisionCoeff;
 
-        public double Fscore(Player player)
+        public double SwingFscore(Player player)
         {
-            double numerator = _numeratorCoeff * player.Precision * player.Recall;
-            double denominator = player.Recall + (_precisionCoeff * player.Precision);
+            double numerator = _numeratorCoeff * player.SwingPrecision * player.SwingRecall;
+            double denominator = player.SwingRecall + (_precisionCoeff * player.SwingPrecision);
             return numerator / denominator;
         }
-
-        public void WriteFscoreReport(string outputFileName, IEnumerable<Player> players)
+        public double TakeFscore(Player player)
+        {
+            double numerator = _numeratorCoeff * player.TakePrecision * player.TakeRecall;
+            double denominator = player.TakeRecall + (_precisionCoeff * player.TakePrecision);
+            return numerator / denominator;
+        }
+        public void WriteFscoreReport(string outputFileName, IEnumerable<Player> players, bool forSwing)
         {
             var r = new Random();
-            var diffFileName = $"{this.beta:N3}-" + outputFileName + $"{-r.NextInt64(2000)}.csv";
+            var diffFileName = $"{(forSwing ? "SwingScore": "TakeScore")} - {this.beta:N3}-" + outputFileName + $"{-r.NextInt64(2000)}.csv";
             using(StreamWriter writer = new StreamWriter(diffFileName))
             {
                 writer.WriteLine("name,precision,recall,fscore,woba");
                 foreach(var p in players)
                 {
-                    writer.WriteLine($"{p.Name},{p.Precision},{p.Recall},{Fscore(p)},{p.woba}");
+                    if(forSwing)
+                    writer.WriteLine($"{p.Name},{p.SwingPrecision},{p.SwingRecall},{SwingFscore(p)},{p.woba}");
+                    else
+                    writer.WriteLine($"{p.Name},{p.TakePrecision},{p.TakeRecall},{TakeFscore(p)},{p.woba}");
                 }
                 writer.WriteLine("");
             }
