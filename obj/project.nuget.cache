@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "RPcvM3zy3khVVipa+Ns0Ambcqb0e8OtF2cZwkDrWmMT6aGuYjljoRkTOm8DFpSRljzLTJgpNOxlf3RzlVZ1Bfw==",
+  "success": true,
+  "projectFilePath": "/home/brennan/documents/plate-discipline-fscore/plate-discipline-fscore.csproj",
+  "expectedPackageFiles": [
+    "/home/brennan/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
