@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
-
+using Microsoft.ML.Data;
 namespace PlateDiscipline
 {
     class Program
@@ -62,7 +62,10 @@ namespace PlateDiscipline
             var diffFileName = $"{(forSwing ? "SwingScore": "TakeScore")} - {this.beta:N3}-" + outputFileName + $"{-r.NextInt64(2000)}.csv";
             using(StreamWriter writer = new StreamWriter(diffFileName))
             {
-                writer.WriteLine("name,precision,recall,fscore,woba");
+                if(forSwing)
+                writer.WriteLine("name,swing precision,swing recall,swing fscore,woba");
+                else
+                writer.WriteLine("name,take precision,take recall,take fscore,woba");
                 foreach(var p in players)
                 {
                     if(forSwing)
