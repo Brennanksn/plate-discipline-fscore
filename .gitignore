@@ -227,3 +227,7 @@ AppPackages/
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
+obj/project.nuget.cache
+obj/project.nuget.cache
+obj/Debug/net7.0/plate-discipline-fscore.assets.cache
+obj/Debug/net7.0/plate-discipline-fscore.csproj.AssemblyReference.cache
