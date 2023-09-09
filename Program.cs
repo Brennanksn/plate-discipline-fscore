@@ -14,7 +14,7 @@ namespace PlateDiscipline
                 HeaderValidated = null,
                 PrepareHeaderForMatch = args => args.Header.ToLower().Trim(),
             };
-            using (var reader = new StreamReader("./stats.csv"))
+            using (var reader = new StreamReader("./stats (2).csv"))
             using (var csv = new CsvReader(reader, config))
             {
                 csv.Context.RegisterClassMap<PlayerMap>();
